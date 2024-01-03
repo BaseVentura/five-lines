@@ -6,3 +6,9 @@ Kann angewendet werden, wenn eine Methode zu lange ist bzw. der Code Smell zu vi
 3. Neue methode über markierten Bereich aufrufen
 4. Markierten Code ausschneiden und in der neuen Mehtode einfügen
 5. Durch Compiler helfen lassen und fehlende Parameter hinzufügen
+
+
+# 2. Funktion Teilen um Abstraktionsebenen zu trennen
+## Regel - aufrufen oder Übergeben
+Eine Funktion sollte entweder Funktionen an einem Objekt aufrufen oder dieses als Argument übergeben. 
+Beheben durch Methode extrahieren
