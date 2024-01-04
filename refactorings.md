@@ -16,4 +16,14 @@ Eine Funktion sollte entweder Funktionen an einem Objekt aufrufen oder dieses al
 Das soll verhindern, dass Abstraktionsebenen vermischt werden und die Lesbarkeit des Codes nachlässt.
 
 ## Regel - "if" nur am Anfang
+Falls es eine If-Anweisung gibt sollte diese am Anfang der Funktion stehen
 Soll den Geruch von zuviel Verantwortung verhindern
+
+## Regel - Benutze niemals "if" mit "else"
+Mit if else treffen wir fest verdratetet Entscheidungen und verlieren an Flexibilität.
+if -> Prüfung 
+if-else -> Entscheidung
+
+### Geruch - Frühe Bindung
+Durch ein if-else Binden wir uns schon zur Compiletime und verhidnert damit erweiten durch Komposition
+Kann zum Beispiel durch das refactoring type codes durch klassen ersetzen erreicht werden.

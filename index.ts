@@ -14,8 +14,41 @@ enum Tile {
   KEY2, LOCK2
 }
 
-enum Input {
+enum RawInput {
   UP, DOWN, LEFT, RIGHT
+}
+
+interface Input {
+  isUp(): boolean;
+  isDown(): boolean;
+  isLeft(): boolean;
+  isRight(): boolean;
+}
+
+class Right implements Input{
+  isUp(): boolean { return false; }
+  isDown(): boolean { return false  }
+  isLeft(): boolean { return false  }
+  isRight(): boolean { return true  }
+}
+
+class Down implements Input{
+  isUp(): boolean { return false; }
+  isDown(): boolean { return true }
+  isLeft(): boolean { return false  }
+  isRight(): boolean { return false  }
+}
+class Left implements Input{
+  isUp(): boolean { return false; }
+  isDown(): boolean { return false  }
+  isLeft(): boolean { return true }
+  isRight(): boolean { return false  }
+}
+class Up implements Input{
+  isUp(): boolean { return true; }
+  isDown(): boolean { return false  }
+  isLeft(): boolean { return false  }
+  isRight(): boolean { return false  }
 }
 
 let playerx = 1;
@@ -117,13 +150,13 @@ function updateInputs() {
 }
 
 function handleInput(input: Input) {
-  if (input === Input.LEFT)
+  if (input.isLeft())
     moveHorizontal(-1);
-  else if (input === Input.RIGHT)
+  else if (input.isRight())
     moveHorizontal(1);
-  else if (input === Input.UP)
+  else if (input.isUp())
     moveVertical(-1);
-  else if (input === Input.DOWN)
+  else if (input.isDown())
     moveVertical(1);
 }
 
@@ -187,9 +220,9 @@ const UP_KEY = "ArrowUp";
 const RIGHT_KEY = "ArrowRight";
 const DOWN_KEY = "ArrowDown";
 window.addEventListener("keydown", e => {
-  if (e.key === LEFT_KEY || e.key === "a") inputs.push(Input.LEFT);
-  else if (e.key === UP_KEY || e.key === "w") inputs.push(Input.UP);
-  else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(Input.RIGHT);
-  else if (e.key === DOWN_KEY || e.key === "s") inputs.push(Input.DOWN);
+  if (e.key === LEFT_KEY || e.key === "a") inputs.push(new Left());
+  else if (e.key === UP_KEY || e.key === "w") inputs.push(new Up());
+  else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(new Right());
+  else if (e.key === DOWN_KEY || e.key === "s") inputs.push(new Down());
 });
 
