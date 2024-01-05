@@ -23,6 +23,7 @@ interface Input {
   isDown(): boolean;
   isLeft(): boolean;
   isRight(): boolean;
+  handle(): void
 }
 
 class Right implements Input{
@@ -30,6 +31,7 @@ class Right implements Input{
   isDown(): boolean { return false  }
   isLeft(): boolean { return false  }
   isRight(): boolean { return true  }
+  handle() { moveHorizontal(1) }
 }
 
 class Down implements Input{
@@ -37,18 +39,23 @@ class Down implements Input{
   isDown(): boolean { return true }
   isLeft(): boolean { return false  }
   isRight(): boolean { return false  }
+  handle() {  moveVertical(1) }
+  
 }
 class Left implements Input{
   isUp(): boolean { return false; }
   isDown(): boolean { return false  }
   isLeft(): boolean { return true }
   isRight(): boolean { return false  }
+  handle() { moveHorizontal(-1) }
+  
 }
 class Up implements Input{
   isUp(): boolean { return true; }
   isDown(): boolean { return false  }
   isLeft(): boolean { return false  }
   isRight(): boolean { return false  }
+  handle() { moveVertical(-1) }
 }
 
 let playerx = 1;
@@ -149,16 +156,7 @@ function updateInputs() {
   }
 }
 
-function handleInput(input: Input) {
-  if (input.isLeft())
-    moveHorizontal(-1);
-  else if (input.isRight())
-    moveHorizontal(1);
-  else if (input.isUp())
-    moveVertical(-1);
-  else if (input.isDown())
-    moveVertical(1);
-}
+function handleInput(input: Input) { input.handle()}
 
 function draw() {
   let g = createGrafics();
