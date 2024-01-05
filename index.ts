@@ -152,11 +152,9 @@ function updateTile(y: number, x: number) {
 function updateInputs() {
   while (inputs.length > 0) {
     let current = inputs.pop();
-    handleInput(current);
+    current.handle()
   }
 }
-
-function handleInput(input: Input) { input.handle()}
 
 function draw() {
   let g = createGrafics();

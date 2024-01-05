@@ -42,3 +42,6 @@ Hilft Invarianten zu lokalisieren, das es Logik in die Zugehörige Klasse schieb
   a. Intefriere Methoden, die eine Konstante zurück geben
   b. Schritte ausführen deren Ergebnis jetzt schon bekannt ist. Bsp. 'if(true)' und 'if(false)' entfernen
   c. Methode umbenen um Kompiler zufrieden zu stellen
+
+### Refactoring - Methode integrieren
+Sinnvoll, wenn die Methode sehr klein ist. Hier werden die Methoden aufrufe durch deren Rumpf ersetzt und die Methode selbst dann anschliessend entfernt.
