@@ -1,220 +1,8 @@
+import { Air, Box, FallingBox, FallingStone, Flux, Key1, Key2, Lock1, Lock2, Player, RawTile, Stone, Tile, Unbreakble } from "./Tile";
 
 const TILE_SIZE = 30;
 const FPS = 30;
 const SLEEP = 1000 / FPS;
-
-enum TileOld {
-  AIR,
-  FLUX,
-  UNBREAKABLE,
-  PLAYER,
-  STONE, FALLING_STONE,
-  BOX, FALLING_BOX,
-  KEY1, LOCK1,
-  KEY2, LOCK2
-}
-
-interface Tile2 {
-  isAir(): boolean;
-  isFlux(): boolean;
-  isUnbreakable(): boolean;
-  isPlayer(): boolean;
-  isStone(): boolean; 
-  isFallingStone(): boolean;
-  isBox(): boolean
-  isFallingbox(): boolean;
-  isKey1(): boolean;
-  isLock1(): boolean;
-  isKey2(): boolean;
-  isLock2(): boolean;
-}
-
-class Air implements Tile2{
-  isAir(): boolean {return true}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Flux implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return true}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Unbreakble implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return true}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Player implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return true}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class FallingStone implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return true}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Stone implements Tile2{
-  isAir(): boolean {return false }  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return true}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Box implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return true}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class FallingBox implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return true}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-class Key1 implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return true}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Lock1 implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return true}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return false}
-}
-
-class Key2 implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return true}
-  isLock2(): boolean {return false}
-}
-
-class Lock2 implements Tile2{
-  isAir(): boolean {return false}  
-  isFlux(): boolean {return false}
-  isUnbreakable(): boolean {return false}
-  isPlayer(): boolean {return false}
-  isStone(): boolean {return false}
-  isFallingStone(): boolean {return false}
-  isBox(): boolean {return false}
-  isFallingbox(): boolean {return false}
-  isKey1(): boolean {return false}
-  isLock1(): boolean {return false}
-  isKey2(): boolean {return false}
-  isLock2(): boolean {return true}
-}
-
-
-
-
-
-enum RawInput {
-  UP, DOWN, LEFT, RIGHT
-}
 
 interface Input {
   isUp(): boolean;
@@ -238,7 +26,7 @@ class Down implements Input{
   isLeft(): boolean { return false  }
   isRight(): boolean { return false  }
   handle() {  moveVertical(1) }
-  
+
 }
 class Left implements Input{
   isUp(): boolean { return false; }
@@ -246,7 +34,7 @@ class Left implements Input{
   isLeft(): boolean { return true }
   isRight(): boolean { return false  }
   handle() { moveHorizontal(-1) }
-  
+
 }
 class Up implements Input{
   isUp(): boolean { return true; }
@@ -258,7 +46,7 @@ class Up implements Input{
 
 let playerx = 1;
 let playery = 1;
-let map: Tile2[][] = [
+let rawMap: RawTile[][] = [
   [2, 2, 2, 2, 2, 2, 2, 2],
   [2, 3, 0, 1, 1, 2, 0, 2],
   [2, 4, 2, 6, 1, 2, 0, 2],
@@ -266,8 +54,41 @@ let map: Tile2[][] = [
   [2, 4, 1, 1, 1, 9, 0, 2],
   [2, 2, 2, 2, 2, 2, 2, 2],
 ];
-
+let map: Tile[][];
 let inputs: Input[] = [];
+
+function asserExhausted(x: never): never{
+  throw new Error("unexpected objct: " + x)
+}
+
+
+function transformTile(tile: RawTile): Tile{
+  switch(tile){
+    case RawTile.AIR: return new Air();
+    case RawTile.FLUX: return new Flux();
+    case RawTile.UNBREAKABLE: return new Unbreakble();
+    case RawTile.PLAYER: return new Player();
+    case RawTile.STONE: return new Stone();
+    case RawTile.FALLING_STONE: return new FallingStone();
+    case RawTile.BOX: return new Box();
+    case RawTile.FALLING_BOX: return new FallingBox();
+    case RawTile.KEY1: return new Key1();
+    case RawTile.LOCK1: return new Lock1();
+    case RawTile.KEY2: return new Key2();
+    case RawTile.LOCK2: return new Lock2();
+    default: asserExhausted(tile);
+  }
+}
+
+function transformMap(){
+  map = new Array(rawMap.length)
+  for(let x=0; x < rawMap.length; x++){
+    map[x] = new Array(rawMap[x].length)
+    for(let y=0; y < rawMap[x].length; y++){
+      map[x][y] = transformTile(rawMap[x][y])
+    }
+  }
+}
 
 function removeLock1() {
   for (let y = 0; y < map.length; y++) {
