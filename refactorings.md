@@ -45,3 +45,6 @@ Hilft Invarianten zu lokalisieren, das es Logik in die Zugehörige Klasse schieb
 
 ### Refactoring - Methode integrieren
 Sinnvoll, wenn die Methode sehr klein ist. Hier werden die Methoden aufrufe durch deren Rumpf ersetzt und die Methode selbst dann anschliessend entfernt.
+
+## Regel - verwende neimals Switch
+Promleme sind hier der default fall und die Fallthrough logik. Als Ausmahme könnene wir beides verhindern indem wir in jedem fall returnen und dadurch kein Break brauchen und es keinen default Fall gibt -> assertExhausted

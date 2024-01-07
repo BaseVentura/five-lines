@@ -1,5 +1,3 @@
-import { Air, Box, FallingBox, FallingStone, Flux, Key1, Key2, Lock1, Lock2, Player, RawTile, Stone, Tile, Unbreakble } from "./Tile";
-
 const TILE_SIZE = 30;
 const FPS = 30;
 const SLEEP = 1000 / FPS;
@@ -42,6 +40,226 @@ class Up implements Input{
   isLeft(): boolean { return false  }
   isRight(): boolean { return false  }
   handle() { moveVertical(-1) }
+}
+ enum RawTile {
+  AIR,
+  FLUX,
+  UNBREAKABLE,
+  PLAYER,
+  STONE, FALLING_STONE,
+  BOX, FALLING_BOX,
+  KEY1, LOCK1,
+  KEY2, LOCK2
+}
+
+ interface Tile {
+  isAir(): boolean;
+  isFlux(): boolean;
+  isUnbreakable(): boolean;
+  isPlayer(): boolean;
+  isStone(): boolean;
+  isFallingStone(): boolean;
+  isBox(): boolean
+  isFallingbox(): boolean;
+  isKey1(): boolean;
+  isLock1(): boolean;
+  isKey2(): boolean;
+  isLock2(): boolean;
+  colorTile( g: CanvasRenderingContext2D):void;
+}
+
+class Air implements Tile{
+  isAir(): boolean {return true}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) {}
+  
+}
+
+ class Flux implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return true}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#ccffcc"}
+}
+
+ class Unbreakble implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return true}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile( g: CanvasRenderingContext2D) {g.fillStyle = "#999999"}
+}
+
+ class Player implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return true}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) {  }
+}
+
+ class FallingStone implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return true}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) {g.fillStyle = "#0000cc";}
+}
+
+ class Stone implements Tile{
+  isAir(): boolean {return false }
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return true}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) {g.fillStyle = "#0000cc";}
+}
+
+ class Box implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return true}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#8b4513"}
+}
+
+ class FallingBox implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return true}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile( g: CanvasRenderingContext2D) {  g.fillStyle = "#8b4513"}
+}
+
+ class Key1 implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return true}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
+}
+
+ class Lock1 implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return true}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return false}
+  colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
+}
+
+ class Key2 implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return true}
+  isLock2(): boolean {return false}
+  colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#00ccff"}
+}
+
+ class Lock2 implements Tile{
+  isAir(): boolean {return false}
+  isFlux(): boolean {return false}
+  isUnbreakable(): boolean {return false}
+  isPlayer(): boolean {return false}
+  isStone(): boolean {return false}
+  isFallingStone(): boolean {return false}
+  isBox(): boolean {return false}
+  isFallingbox(): boolean {return false}
+  isKey1(): boolean {return false}
+  isLock1(): boolean {return false}
+  isKey2(): boolean {return false}
+  isLock2(): boolean {return true}
+  colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
+
 }
 
 let playerx = 1;
@@ -207,27 +425,13 @@ function drawPlayer(g: CanvasRenderingContext2D) {
 function drawMap(g: CanvasRenderingContext2D) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
-      colorTile(y, x, g);
+      map[y][x].colorTile(g);
       if (!map[y][x].isAir() && !map[y][x].isPlayer())
         g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
   }
 }
 
-function colorTile(y: number, x: number, g: CanvasRenderingContext2D) {
-  if (map[y][x].isFlux())
-    g.fillStyle = "#ccffcc";
-  else if (map[y][x].isUnbreakable())
-    g.fillStyle = "#999999";
-  else if (map[y][x].isStone() || map[y][x].isFallingStone())
-    g.fillStyle = "#0000cc";
-  else if (map[y][x].isBox() || map[y][x].isFallingbox())
-    g.fillStyle = "#8b4513";
-  else if (map[y][x].isKey1() || map[y][x].isLock1())
-    g.fillStyle = "#ffcc00";
-  else if (map[y][x].isLock2() || map[y][x].isLock2())
-    g.fillStyle = "#00ccff";
-}
 
 function gameLoop() {
   let before = Date.now();
@@ -240,6 +444,7 @@ function gameLoop() {
 }
 
 window.onload = () => {
+  transformMap();
   gameLoop();
 }
 
