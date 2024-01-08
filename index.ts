@@ -66,6 +66,7 @@ class Up implements Input{
   isKey2(): boolean;
   isLock2(): boolean;
   colorTile( g: CanvasRenderingContext2D):void;
+  draw(y: number, x: number, g: CanvasRenderingContext2D): void
 }
 
 class Air implements Tile{
@@ -82,6 +83,9 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) {}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+  }
   
 }
 
@@ -99,6 +103,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#ccffcc"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Unbreakble implements Tile{
@@ -115,6 +123,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile( g: CanvasRenderingContext2D) {g.fillStyle = "#999999"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Player implements Tile{
@@ -131,6 +143,9 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) {  }
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+  }
 }
 
  class FallingStone implements Tile{
@@ -147,6 +162,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) {g.fillStyle = "#0000cc";}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Stone implements Tile{
@@ -163,6 +182,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) {g.fillStyle = "#0000cc";}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Box implements Tile{
@@ -179,6 +202,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#8b4513"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class FallingBox implements Tile{
@@ -195,6 +222,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile( g: CanvasRenderingContext2D) {  g.fillStyle = "#8b4513"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Key1 implements Tile{
@@ -211,6 +242,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Lock1 implements Tile{
@@ -227,6 +262,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return false}
   colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Key2 implements Tile{
@@ -243,6 +282,10 @@ class Air implements Tile{
   isKey2(): boolean {return true}
   isLock2(): boolean {return false}
   colorTile( g: CanvasRenderingContext2D) { g.fillStyle = "#00ccff"}
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
  class Lock2 implements Tile{
@@ -259,7 +302,10 @@ class Air implements Tile{
   isKey2(): boolean {return false}
   isLock2(): boolean {return true}
   colorTile(g: CanvasRenderingContext2D) { g.fillStyle = "#ffcc00"}
-
+  draw(y: number, x: number, g: CanvasRenderingContext2D) {
+    this.colorTile(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 let playerx = 1;
@@ -425,10 +471,7 @@ function drawPlayer(g: CanvasRenderingContext2D) {
 function drawMap(g: CanvasRenderingContext2D) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
-      map[y][x].colorTile(g);
-      if (!map[y][x].isAir() && !map[y][x].isPlayer())
-        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-    }
+      map[y][x].draw(y,x,g)    }
   }
 }
 
