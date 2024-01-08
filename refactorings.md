@@ -48,3 +48,6 @@ Sinnvoll, wenn die Methode sehr klein ist. Hier werden die Methoden aufrufe durc
 
 ## Regel - verwende neimals Switch
 Promleme sind hier der default fall und die Fallthrough logik. Als Ausmahme könnene wir beides verhindern indem wir in jedem fall returnen und dadurch kein Break brauchen und es keinen default Fall gibt -> assertExhausted
+
+## Regel - Erbe nur von Interfaces
+Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Klasse verwenden und von dieser Erben. Der Vorteil vom Interface ist, dass wir gezwungen werden uns Gedanken zu machen und die Methoden erneute zu implementieren sobald wir eine weitere Klasse implementieren. Wir erweitern also durch hinzufügen. -> Komposition gegenüber Vererbung
