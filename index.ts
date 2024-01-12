@@ -30,8 +30,19 @@ class Up implements Input{
   KEY2, LOCK2
 }
 
-enum FallingState{
-  FALLING, RESTING
+interface FallingState{
+  isFalling(): boolean
+  isResting(): boolean
+}
+
+class Falling implements FallingState{
+  isFalling(): boolean { return true }
+  isResting(): boolean { return false }
+}
+
+class Resting implements FallingState{
+  isFalling(): boolean { return false  }
+  isResting(): boolean { return true  }
 }
 
  interface Tile {
@@ -119,7 +130,7 @@ class Air implements Tile{
   constructor(private falling: FallingState){}
   isAir(): boolean {return false }
   isStone(): boolean {return true}
-  isFallingStone(): boolean {return this.falling === FallingState.FALLING}
+  isFallingStone(): boolean {return this.falling.isFalling()}
   isBox(): boolean {return false}
   isFallingbox(): boolean {return false}
   isLock1(): boolean {return false}
@@ -294,8 +305,8 @@ function transformTile(tile: RawTile): Tile{
     case RawTile.FLUX: return new Flux();
     case RawTile.UNBREAKABLE: return new Unbreakble();
     case RawTile.PLAYER: return new Player();
-    case RawTile.STONE: return new Stone(FallingState.RESTING);
-    case RawTile.FALLING_STONE: return new Stone(FallingState.FALLING);
+    case RawTile.STONE: return new Stone(new Resting());
+    case RawTile.FALLING_STONE: return new Stone(new Falling());
     case RawTile.BOX: return new Box();
     case RawTile.FALLING_BOX: return new FallingBox();
     case RawTile.KEY1: return new Key1();
@@ -360,14 +371,14 @@ function updateMap() {
 function updateTile(y: number, x: number) {
   if ((map[y][x].isStony())
     && map[y + 1][x].isAir()) {
-    map[y + 1][x] = new Stone(FallingState.FALLING);
+    map[y + 1][x] = new Stone(new Falling());
     map[y][x] = new Air();
   } else if ((this.isBox())
     && map[y + 1][x].isAir()) {
     map[y + 1][x] = new FallingBox();
     map[y][x] = new Air();
   } else if (map[y][x].isFallingStone()) {
-    map[y][x] = new Stone(FallingState.RESTING);
+    map[y][x] = new Stone(new Resting());
   } else if (map[y][x].isFallingbox()) {
     map[y][x] = new Box();
   }
