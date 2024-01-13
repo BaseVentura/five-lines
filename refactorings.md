@@ -51,3 +51,18 @@ Promleme sind hier der default fall und die Fallthrough logik. Als Ausmahme kön
 
 ## Regel - Erbe nur von Interfaces
 Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Klasse verwenden und von dieser Erben. Der Vorteil vom Interface ist, dass wir gezwungen werden uns Gedanken zu machen und die Methoden erneute zu implementieren sobald wir eine weitere Klasse implementieren. Wir erweitern also durch hinzufügen. -> Komposition gegenüber Vererbung 
+
+### Refactoring - Klassen zusammenführen
+- Immer wenn wir mehrere Klassen haben die sich nur durch Konstante Methoden unterscheiden können wir diese zusammenführen. -> Methoden die einen Konstanten wert zurückgeben.
+- Die Konstanen Methoden bilden die Basis unserer Klassen - eine Basis mit zwei Methoden -> Zweierbasis
+-  Die Menge der Klassen die wir zusammen führen können hängt mit der Größe der Basis zusammen: Um x Klassen zusammenzuführen muss unsere Basis x-1 sein.
+
+#### Vorgehen
+1. Unterschiedliche Methoden angleichen
+  a. Rumpf aller Methoden aller Klassen mit if(true) umgeben
+  b. true durch ausdruck der alle Methoden der Basis aufruft und ihren Rückgabewert mit einer Konstante vergelicht. 
+  c. Rumpf jeder Methode in kopieren und in jede anderen implementierung einfügen.
+
+2. Basismethoden anpassen indem wir für jede Basismethode im Konstruktor ein neuen Feld einführen und dieses in der Basismethode zurückgeben statt der Konstante. 
+
+3. Doppelte Klassen löschen. 
