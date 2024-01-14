@@ -14,7 +14,7 @@ class Red implements TrafficLight{
   updateCar(){car.stop() }  
 }
 
-class Car{
+export class Car{
 stop(){
   console.log("car stopped")
 }
