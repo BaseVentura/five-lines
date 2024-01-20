@@ -66,3 +66,8 @@ Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Kla
 2. Basismethoden anpassen indem wir für jede Basismethode im Konstruktor ein neuen Feld einführen und dieses in der Basismethode zurückgeben statt der Konstante. 
 
 3. Doppelte Klassen löschen. 
+
+### Refactoring "Strategy einführen"
+- Strategy ist ein Entwurfsmuster, dß varianz einführt indem wir eine weitere Klasse instanziieren.
+- Strategy Klassen enthalten selten neue Methoden wenn sie geschrieben wurden
+- Sinnvoll um Code aus Klassen rausziziehen um Logik zu betonen oder um Varianz zu schaffen.

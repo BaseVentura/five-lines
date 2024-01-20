@@ -50,6 +50,23 @@ class Resting implements FallingState{
   } 
 }
 
+class FallStrategy{
+  constructor(private falling: FallingState){}
+  update(tile: Tile, x: number, y: number) {
+    this.falling = map[y + 1][x].isAir() ? new Falling() : new Resting()
+    this.drop(tile,x,y)
+ }
+ private drop(tile: Tile, x: number, y: number){
+    if (map[y + 1][x].isAir()) { 
+      map[y + 1][x] = tile
+      map[y][x] = new Air();
+    } 
+ }
+ getFalling():FallingState{
+  return this.falling
+ }
+}
+
  interface Tile {
   isAir(): boolean;
   isLock1(): boolean;
@@ -107,48 +124,40 @@ class Air implements Tile{
 }
 
  class Stone implements Tile{
-  constructor(private falling: FallingState){}
+  private fallStrategy: FallStrategy
+  constructor(falling: FallingState){
+    this.fallStrategy = new FallStrategy(falling)
+  }
   isAir(): boolean {return false }
   isLock1(): boolean {return false}
   isLock2(): boolean {return false}
   update(y: number, x: number) {
-    if (map[y + 1][x].isAir()) {
-     this.falling = new Falling()  
-     map[y + 1][x] = this
-     map[y][x] = new Air();
-   } else if (this.falling.isFalling()) {
-     this.falling = new Resting()
-   }
+    this.fallStrategy.update(this,x,y)
  }
   draw(y: number, x: number, g: CanvasRenderingContext2D) {
     g.fillStyle = "#0000cc";
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
-  moveHorizontal(dx: number) {this.falling.moveHorizontal(this, dx)
+  moveHorizontal(dx: number) {this.fallStrategy.getFalling().moveHorizontal(this, dx)
   }  
   moveVertical(dy: number) {  }
 }
 
  class Box implements Tile{
-  constructor(private falling: FallingState){}
+  private fallStrategy: FallStrategy
+  constructor(falling: FallingState){
+    this.fallStrategy = new FallStrategy(falling)
+  }
   isAir(): boolean {return false}
   isLock1(): boolean {return false}
   isLock2(): boolean {return false}
-  update(y: number, x: number) {
-    if (map[y + 1][x].isAir()) {
-     this.falling = new Falling()  
-     map[y + 1][x] = this
-     map[y][x] = new Air();
-   } else if (this.falling.isFalling()) {
-     this.falling = new Resting()
-   }
- }
+  update(y: number, x: number) {this.fallStrategy.update(this,x,y) }
   draw(y: number, x: number, g: CanvasRenderingContext2D) {
     g.fillStyle = "#8b4513"
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   moveHorizontal(dx: number) {
-    this.falling.moveHorizontal(this,dx)
+    this.fallStrategy.getFalling().moveHorizontal(this,dx)
   }  
   moveVertical(dy: number) {}
 }
