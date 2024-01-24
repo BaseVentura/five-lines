@@ -162,21 +162,22 @@ class Air implements Tile{
   moveVertical(dy: number) {}
 }
 
- class Key1 implements Tile{
+ class Key implements Tile{
+   constructor(private removeStrategy: RemoveStrategy, private color: string){}
   isAir(): boolean {return false}
   isLock1(): boolean {return false}
   isLock2(): boolean {return false}
   update(y: number, x: number): void{}
   draw(y: number, x: number, g: CanvasRenderingContext2D) {
-    g.fillStyle = "#ffcc00"
+    g.fillStyle = this.color
     g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
   moveHorizontal(dx: number) {
-      removeLock1();
+      remove(this.removeStrategy);
       moveToTile(playerx + dx, playery);
   }  
   moveVertical(dy: number) {
-      removeLock1();
+      remove(this.removeStrategy);
       moveToTile(playerx, playery + dy);
   }
 }
@@ -194,24 +195,6 @@ class Air implements Tile{
   moveVertical(dy: number) {}
 }
 
- class Key2 implements Tile{
-  isAir(): boolean {return false}
-  isLock1(): boolean {return false}
-  isLock2(): boolean {return false}
-  update(y: number, x: number): void{}
-  draw(y: number, x: number, g: CanvasRenderingContext2D) {
-    g.fillStyle = "#00ccff"
-    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-  }
-  moveHorizontal(dx: number) {
-      removeLock2();
-      moveToTile(playerx + dx, playery);
-  }  
-  moveVertical(dy: number) {
-      removeLock2();
-      moveToTile(playerx, playery + dy);
-  }
-}
 
  class Lock2 implements Tile{
   isAir(): boolean {return false}
@@ -254,9 +237,9 @@ function transformTile(tile: RawTile): Tile{
     case RawTile.FALLING_STONE: return new Stone(new Falling());
     case RawTile.BOX: return new Box(new Resting());
     case RawTile.FALLING_BOX: return new Box(new Falling());
-    case RawTile.KEY1: return new Key1();
+    case RawTile.KEY1: return new Key(new RemoveLock1(),"#ffcc00");
     case RawTile.LOCK1: return new Lock1();
-    case RawTile.KEY2: return new Key2();
+    case RawTile.KEY2: return new Key(new RemoveLock2(),"#00ccff");
     case RawTile.LOCK2: return new Lock2();
     default: assertExhausted(tile);
   }
@@ -272,20 +255,26 @@ function transformMap(){
   }
 }
 
-function removeLock1() {
-  for (let y = 0; y < map.length; y++) {
-    for (let x = 0; x < map[y].length; x++) {
-      if (map[y][x].isLock1()) {
-        map[y][x] = new Air();
-      }
-    }
+class RemoveLock1 implements RemoveStrategy{
+  check(tile:Tile) {
+    return tile.isLock1();
   }
 }
 
-function removeLock2() {
+class RemoveLock2 implements RemoveStrategy{
+  check(tile:Tile) {
+    return tile.isLock2();
+  }
+}
+
+interface RemoveStrategy{
+  check(tile: Tile): boolean
+}
+
+function remove(shouldRemove: RemoveStrategy) {
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
-      if (map[y][x].isLock2) {
+      if (shouldRemove.check(map[y][x])) {
         map[y][x] = new Air();
       }
     }

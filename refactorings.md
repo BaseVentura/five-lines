@@ -71,3 +71,6 @@ Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Kla
 - Strategy ist ein Entwurfsmuster, dß varianz einführt indem wir eine weitere Klasse instanziieren.
 - Strategy Klassen enthalten selten neue Methoden wenn sie geschrieben wurden
 - Sinnvoll um Code aus Klassen rausziziehen um Logik zu betonen oder um Varianz zu schaffen.
+
+## Keine Interfaces mit nur einer Implementierung
+- Interfaces implizieren varianz. Wenn diese aber nicht gibt ist das Irreführend

@@ -21,25 +21,8 @@ class SumProcessor implements Processor{
   }
 }
 
-
-class ArrayMinimum{
-  processor: Processor
-  constructor( accumulator: number){
-    this.processor = new MinProcessor(accumulator)
-  }
-  process(arr: number[]){
-    for(let i: number; i<arr.length; i++){
-      this.processor.processElement(arr[i])    
-    }
-    return this.processor.getAccumulator()
-  }
-}
-
-class ArraySum{
-  processor: Processor
-  constructor( accumulator: number){
-    this.processor = new SumProcessor(accumulator)
-    }
+class BatchProcessor{
+  constructor( private processor: Processor){ }
   process(arr: number[]){
     for(let i: number; i < arr.length; i++){
       this.processor.processElement(arr[i])
