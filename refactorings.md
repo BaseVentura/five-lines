@@ -52,6 +52,16 @@ Promleme sind hier der default fall und die Fallthrough logik. Als Ausmahme kön
 ## Regel - Erbe nur von Interfaces
 Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Klasse verwenden und von dieser Erben. Der Vorteil vom Interface ist, dass wir gezwungen werden uns Gedanken zu machen und die Methoden erneute zu implementieren sobald wir eine weitere Klasse implementieren. Wir erweitern also durch hinzufügen. -> Komposition gegenüber Vererbung 
 
+
+### Refactoring "Strategy einführen"
+- Strategy ist ein Entwurfsmuster, dß varianz einführt indem wir eine weitere Klasse instanziieren.
+- Strategy Klassen enthalten selten neue Methoden wenn sie geschrieben wurden
+- Sinnvoll um Code aus Klassen rausziziehen um Logik zu betonen oder um Varianz zu schaffen.
+
+## Keine Interfaces mit nur einer Implementierung
+- Interfaces implizieren varianz. Wenn diese aber nicht gibt ist das Irreführend
+
+# Ähnlichen Code zusammenführen
 ### Refactoring - Klassen zusammenführen
 - Immer wenn wir mehrere Klassen haben die sich nur durch Konstante Methoden unterscheiden können wir diese zusammenführen. -> Methoden die einen Konstanten wert zurückgeben.
 - Die Konstanen Methoden bilden die Basis unserer Klassen - eine Basis mit zwei Methoden -> Zweierbasis
@@ -66,11 +76,16 @@ Wir könnten eigentlich statt des ganzen doppelten Codes auch eine abstrakte Kla
 2. Basismethoden anpassen indem wir für jede Basismethode im Konstruktor ein neuen Feld einführen und dieses in der Basismethode zurückgeben statt der Konstante. 
 
 3. Doppelte Klassen löschen. 
+## Zusammenfassung
+- ählicher code der keine Varianz braucht sollte zusammen geführt werden. z.B mit ähnliche Klassen zusammenführen
+- ifs können mit dem refactoring ifs zusammenfürgen vereinheitlicht werden 
+- Methoden werden mit strategie einführen vereinheitlicht.
+- in dem wir reine Bedingungen verwenden verhindern wir seiteneffekte con Bedingungen
+- Interfaces mit nur einer implementierung implizieren varianz wo keine ist und sollten vermieden werden. Sie werde erstellt ewenn wir sie benötigen mti dem Refactoring "Interface aus implementierung extrahieren".
 
-### Refactoring "Strategy einführen"
-- Strategy ist ein Entwurfsmuster, dß varianz einführt indem wir eine weitere Klasse instanziieren.
-- Strategy Klassen enthalten selten neue Methoden wenn sie geschrieben wurden
-- Sinnvoll um Code aus Klassen rausziziehen um Logik zu betonen oder um Varianz zu schaffen.
-
-## Keine Interfaces mit nur einer Implementierung
-- Interfaces implizieren varianz. Wenn diese aber nicht gibt ist das Irreführend
+# Daten Verrteidigen
+## Regel - benutze keine Getter und Setter
+- Getter und Setter brechen Kapselung und machen Invarianten global
+- zentralisierte versus dezentralisierte architektur
+- in einer zentralisierte narchitektur werden die daten nicht abgerufen und die verabeitung findet in den Klassen bei den Daten statt.
+- Gesetz der demeter: https://github.com/Neppord/GantasyBattle-Refactoring-kata
